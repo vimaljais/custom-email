@@ -1,22 +1,19 @@
-const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
-app.use(bodyParser.json());
+const nodemailer = require("nodemailer");
 
-app.post("/linknewnewnew", (req, res) => {
-  var please = "";
-  var { link } = req.body;
-  youtubedl.getInfo(
-    link,
-    ["-x", "--audio-format", "mp3"],
-    function (err, info) {
-      if (err) throw err;
-      please = info.formats[0].url;
-      console.log(please);
-    }
-  );
+const custom = require("./controllers/custom.js");
+
+require("dotenv").config();
+
+app.get("/custom", (req, res) => {
+  custom.handleCustomEmail(req, res);
 });
 
-app.listen(3030, () => {
-  console.log(333333);
+app.get("/", (req, res) => {
+  res.send("it is working!");
+});
+
+app.listen(3000, () => {
+  console.log("working on port 3000");
 });
